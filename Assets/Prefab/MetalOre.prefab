@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6790757240145421891}
   - component: {fileID: 8988431866113167633}
   - component: {fileID: -3016702162381364571}
-  - component: {fileID: 3718353164925518641}
+  - component: {fileID: -3945888724797031479}
   m_Layer: 7
   m_Name: MetalOre
   m_TagString: Resource
@@ -122,9 +122,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resourceType: {fileID: 11400000, guid: f3d6702b8b2d21840966e454c44c9846, type: 2}
+  resourceName: 
   harvestQuantity: 0
   harvestRate: 0
---- !u!65 &3718353164925518641
+--- !u!65 &-3945888724797031479
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -139,7 +140,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3

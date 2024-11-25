@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
@@ -5,25 +6,23 @@ using UnityEngine.AI;
 public class PlayerMovement : MonoBehaviour
 {
     NavMeshAgent agent;
-
+    private PlayerController controller;
      
 
     [Header("Movement")]
-    //[SerializeField] ParticleSystem clickEffect;
-    [SerializeField] LayerMask clickableLayers;
+    [SerializeField] LayerMask groundLayer;
+    [SerializeField] LayerMask resourceLayer;
 
-    float lookRotationSpeed = 100f;
+
+    float lookRotationSpeed = 70f;
 
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
+        controller = agent.GetComponent<PlayerController>();
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-
-    }
+    
 
     // Update is called once per frame
     void Update()
@@ -33,9 +32,11 @@ public class PlayerMovement : MonoBehaviour
             Ray myRay = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hitInfo;
 
-            if (Physics.Raycast(myRay, out hitInfo, Mathf.Infinity, clickableLayers))
+            if (Physics.Raycast(myRay, out hitInfo, Mathf.Infinity, groundLayer))
             {
                 GameObject clickEffect = ClickParticlesPool.Instance.GetPooledObject();
+
+                controller.SwitchPlayerState(PlayerState.Walking);
 
                 if (clickEffect != null)
                 {
@@ -43,12 +44,40 @@ public class PlayerMovement : MonoBehaviour
                     clickEffect.SetActive(true);
                     StartCoroutine(DisableClickEffect(clickEffect));
                 }
-
                 agent.SetDestination(hitInfo.point);
+
                 FaceTarget();
+
+
+                StartCoroutine(ReachedDestination(hitInfo.point));
+
+            }
+            else if (Physics.Raycast(myRay, out hitInfo, Mathf.Infinity, resourceLayer))
+            {
+                agent.SetDestination(hitInfo.point);
             }
         }
 
+    }
+
+    IEnumerator ReachedDestination(Vector3 point)
+    {
+        bool walking = true;
+        float tolerance = 0.1f;
+
+        while (walking)
+        {
+            if (Mathf.Abs(agent.transform.position.x - point.x) < tolerance &&
+                Mathf.Abs(agent.transform.position.z - point.z) < tolerance)
+            {
+                walking = false;
+                controller.SwitchPlayerState(PlayerState.Idle);
+                yield return null;
+            }
+
+            yield return new WaitForSeconds(1f);
+        }
+        
     }
 
     void FaceTarget()

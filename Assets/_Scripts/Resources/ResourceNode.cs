@@ -10,6 +10,7 @@ public class ResourceNode : MonoBehaviour
 
     public int harvestQuantity;
     public int harvestRate;
+    public int harvestTime;
     private System.Action onDepletedCallback;
 
     public void Initialize(System.Action onDepleted)
@@ -22,6 +23,7 @@ public class ResourceNode : MonoBehaviour
         resourceName = resourceType.resourceName;
         harvestQuantity = resourceType.resourceAmount;
         harvestRate = resourceType.gatherRate;
+        harvestTime = resourceType.gatherTime;
     }
 
     public int Harvest()

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,26 +6,31 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
 
-    PlayerResources playerResource;
+    public ResourceNode currentResource;
+
+    [SerializeField]PlayerResources playerResource;
 
     // Start is called before the first frame update
     void Start()
     {
-        SwitchPlayerState(PlayerState.Idle, null);
+        SwitchPlayerState(PlayerState.Idle);
     }
 
-    public void SwitchPlayerState(PlayerState newPlayerState, ResourceNode resource)
+    public void SwitchPlayerState(PlayerState newPlayerState)
     {
         switch (newPlayerState)
         {
             case PlayerState.Idle:
+
+                Debug.Log("Current Player State Is Idle");
                 break;
 
             case PlayerState.Walking:
+                Debug.Log("Current Player State Is Walking");
                 break;
 
             case PlayerState.Gathering:
-                GatherHandling(resource);
+                GatherHandling();
                 break;
         }
 
@@ -32,46 +38,81 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Resource"))
+        Debug.Log("Some collider has entered body"+other.name);
+
+        if (other.CompareTag("Resource"))
         {
-            ResourceNode resource = other.GetComponent<ResourceNode>();
-            SwitchPlayerState(PlayerState.Gathering, resource);
+            currentResource = other.GetComponent<ResourceNode>();
+            SwitchPlayerState(PlayerState.Gathering);
+            Debug.Log("Entered resource: " + other.name);
         }
     }
 
-    public void GatherHandling(ResourceNode resource)
+    private void OnTriggerExit(Collider other)
     {
-
-        StartCoroutine(Gathering(resource));
+        if (other.CompareTag("Resource"))
+        {
+            if (currentResource == other.GetComponent<ResourceNode>())
+            {
+                currentResource = null;
+                SwitchPlayerState(PlayerState.Idle);
+                Debug.Log("Exited resource: " + other.name);
+            }
+        }
     }
 
-    IEnumerator Gathering(ResourceNode resource)
+
+    public void GatherHandling()
+    {
+        StartCoroutine(Gathering());
+    }
+
+    IEnumerator Gathering()
     {
         bool isGathering = true;
         while(isGathering)
         {
-            if (resource.harvestQuantity > 0)
+            if(currentResource == null)
             {
-                ContinueHarvesting(resource);
+                if (currentResource.harvestQuantity > 0)
+                {
+                    ContinueHarvesting();
+                }
+                else
+                {
+                    isGathering = false;
+                    SwitchPlayerState(PlayerState.Idle);
+                }
             }
             else
             {
                 isGathering = false;
+                SwitchPlayerState(PlayerState.Idle);
             }
             yield return new WaitForSeconds(2);
+
         }
     }
 
-    void ContinueHarvesting(ResourceNode resource)
+    void ContinueHarvesting()
     {
-        if (resource.resourceName == "MetalOre")
+        if(currentResource != null)
         {
-            playerResource.metalAmount = resource.Harvest();
+            if (currentResource.resourceName == "MetalOre")
+            {
+                playerResource.metalAmount = currentResource.Harvest();
+            }
+            else if (currentResource.resourceName == "TreeLog")
+            {
+                playerResource.woodAmount = currentResource.Harvest();
+            }
         }
-        else if (resource.resourceName == "TreeLog")
+        else
         {
-            playerResource.woodAmount = resource.Harvest();
+            Debug.Log("Resource completely Depleted");
         }
+
+        
     }
 }
 

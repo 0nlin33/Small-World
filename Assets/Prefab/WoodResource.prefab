@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3049188479437766710}
   - component: {fileID: 1426411281611099797}
   - component: {fileID: -4938870048333427295}
-  - component: {fileID: 3628424314856111818}
+  - component: {fileID: -1340954598944112903}
   m_Layer: 7
   m_Name: WoodResource
   m_TagString: Resource
@@ -123,9 +123,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resourceType: {fileID: 11400000, guid: e3e255a501773ea4aab3ede5fbd26896, type: 2}
+  resourceName: 
   harvestQuantity: 0
   harvestRate: 0
---- !u!65 &3628424314856111818
+--- !u!65 &-1340954598944112903
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -140,7 +141,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3

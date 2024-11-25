@@ -552,6 +552,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 610309937}
+  - component: {fileID: 610309938}
   m_Layer: 0
   m_Name: PlayerThings
   m_TagString: Untagged
@@ -567,13 +568,27 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 610309936}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -6.1836505, y: -3.9227903, z: 1.8817914}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1988150068}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &610309938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 610309936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19d77b55ec8e8ae48915f15e19656a12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  woodAmount: 0
+  metalAmount: 0
 --- !u!1 &746952877
 GameObject:
   m_ObjectHideFlags: 0
@@ -1557,6 +1572,8 @@ GameObject:
   - component: {fileID: 1987756631}
   - component: {fileID: 1987756632}
   - component: {fileID: 1987756633}
+  - component: {fileID: 1987756634}
+  - component: {fileID: 1987756635}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1646,7 +1663,7 @@ Transform:
   m_GameObject: {fileID: 1987756626}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalPosition: {x: 0, y: 2, z: -1.53}
   m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1700,7 +1717,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 36
   m_CollisionDetection: 0
 --- !u!114 &1987756633
 MonoBehaviour:
@@ -1714,9 +1731,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1bbdc1942509c7489cb477a3fcf3f57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clickableLayers:
+  groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  resourceLayer:
+    serializedVersion: 2
+    m_Bits: 128
+--- !u!65 &1987756634
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1987756626}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 3, y: 2, z: 3}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1987756635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1987756626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b37f76f22b2ff745911266e4fe688b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentResource: {fileID: 0}
+  playerResource: {fileID: 610309938}
 --- !u!1 &1988150067
 GameObject:
   m_ObjectHideFlags: 0
@@ -1746,6 +1801,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 610309937}
   - {fileID: 1493230724}
   - {fileID: 1310168828}
   - {fileID: 2142861928}
@@ -1827,7 +1883,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2142861928}
-  - component: {fileID: 2142861929}
   m_Layer: 0
   m_Name: ResourceSpawnner
   m_TagString: Untagged
@@ -1850,22 +1905,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1988150068}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2142861929
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2142861927}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: caad1089eb1f0724ca6cb886afe309d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  metalOre: {fileID: 11400000, guid: f3d6702b8b2d21840966e454c44c9846, type: 2}
-  treeLog: {fileID: 11400000, guid: e3e255a501773ea4aab3ede5fbd26896, type: 2}
-  resourceObjectPool: []
-  resourceCountOnScene: 5
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1878,4 +1917,3 @@ SceneRoots:
   - {fileID: 1987756630}
   - {fileID: 536453762}
   - {fileID: 1988150068}
-  - {fileID: 610309937}
