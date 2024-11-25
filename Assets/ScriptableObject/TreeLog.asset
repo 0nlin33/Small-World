@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fcf854530856f94b8bd12a8ecd9d77b, type: 3}
+  m_Name: TreeLog
+  m_EditorClassIdentifier: 
+  resourceName: TreeLog
+  resourceAmount: 150
+  resourcePrefab: {fileID: 2867683066756080620, guid: d29e2b0bf4551734d857f813b60b0cad, type: 3}
+  gatherTime: 2
+  gatherRate: 1
