@@ -72,7 +72,7 @@ public class PlayerController : MonoBehaviour
         bool isGathering = true;
         while(isGathering)
         {
-            if(currentResource == null)
+            if(currentResource != null)
             {
                 if (currentResource.harvestQuantity > 0)
                 {
@@ -89,7 +89,7 @@ public class PlayerController : MonoBehaviour
                 isGathering = false;
                 SwitchPlayerState(PlayerState.Idle);
             }
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(0.5f);
 
         }
     }
@@ -100,11 +100,11 @@ public class PlayerController : MonoBehaviour
         {
             if (currentResource.resourceName == "MetalOre")
             {
-                playerResource.metalAmount = currentResource.Harvest();
+                playerResource.metalAmount += currentResource.Harvest();
             }
             else if (currentResource.resourceName == "TreeLog")
             {
-                playerResource.woodAmount = currentResource.Harvest();
+                playerResource.woodAmount += currentResource.Harvest();
             }
         }
         else

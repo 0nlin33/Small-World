@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,8 @@ public class ResourceNode : MonoBehaviour
     public int harvestRate;
     public int harvestTime;
     private System.Action onDepletedCallback;
+
+    public Action<int> OnResourceHarvested;
 
     public void Initialize(System.Action onDepleted)
     {
@@ -45,6 +48,8 @@ public class ResourceNode : MonoBehaviour
             onDepletedCallback?.Invoke();
             StartCoroutine(DestroyResource());
         }
+
+        OnResourceHarvested?.Invoke(harvestRate);
 
         return harvestRate;
     }

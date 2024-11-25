@@ -60,6 +60,8 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
+    //If clicked on resource, the have the player stand 1 unit away from the position of the resource to match the trigger area and harvest
+
     IEnumerator ReachedDestination(Vector3 point)
     {
         bool walking = true;
