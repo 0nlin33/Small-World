@@ -65,9 +65,18 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
+   public void ChangeAudioStatus()
     {
-        
+        audioStatus = !audioStatus;
+
+        if(audioStatus)
+        {
+            PlayerPrefs.SetInt(AUDIO_STATUS, 1);
+        }
+        else
+        {
+            PlayerPrefs.SetInt(AUDIO_STATUS, 0);
+        }
+        AudioStatusReflect();
     }
 }
