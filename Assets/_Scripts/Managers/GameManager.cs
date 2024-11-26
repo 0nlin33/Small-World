@@ -3,14 +3,43 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
+    private static GameManager instance;
+
+    public static GameManager Instance
+    {
+        get
+        {
+            instance = FindObjectOfType<GameManager>();
+            if(instance == null)
+            {
+                instance = new GameObject().AddComponent<GameManager>();
+            }
+            return instance;
+        }
+    }
+
+    private void Awake()
+    {
+        if(instance != null && instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            instance = this;
+            DontDestroyOnLoad(this);
+        }
+    }
 
     public ResourceNode currentResource;
 
     [SerializeField]PlayerResources playerResource;
 
-    // Start is called before the first frame update
+    public Action<int> OnMetalHarvest;
+    public Action<int> OnWoodHarvest;
+
     void Start()
     {
         SwitchPlayerState(PlayerState.Idle);
@@ -101,10 +130,18 @@ public class PlayerController : MonoBehaviour
             if (currentResource.resourceName == "MetalOre")
             {
                 playerResource.metalAmount += currentResource.Harvest();
+
+                int metalCount = playerResource.metalAmount;
+
+                OnMetalHarvest?.Invoke(metalCount);
             }
             else if (currentResource.resourceName == "TreeLog")
             {
                 playerResource.woodAmount += currentResource.Harvest();
+
+                int woodCount = playerResource.woodAmount;
+
+                OnWoodHarvest?.Invoke(woodCount);
             }
         }
         else

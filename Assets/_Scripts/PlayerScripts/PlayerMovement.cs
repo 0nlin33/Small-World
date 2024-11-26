@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class PlayerMovement : MonoBehaviour
 {
     NavMeshAgent agent;
-    private PlayerController controller;
+    private GameManager gameManager;
      
 
     [Header("Movement")]
@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
-        controller = agent.GetComponent<PlayerController>();
+        gameManager = agent.GetComponent<GameManager>();
     }
 
     
@@ -36,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 GameObject clickEffect = ClickParticlesPool.Instance.GetPooledObject();
 
-                controller.SwitchPlayerState(PlayerState.Walking);
+                gameManager.SwitchPlayerState(PlayerState.Walking);
 
                 if (clickEffect != null)
                 {
@@ -73,7 +73,7 @@ public class PlayerMovement : MonoBehaviour
                 Mathf.Abs(agent.transform.position.z - point.z) < tolerance)
             {
                 walking = false;
-                controller.SwitchPlayerState(PlayerState.Idle);
+                gameManager.SwitchPlayerState(PlayerState.Idle);
                 yield return null;
             }
 
