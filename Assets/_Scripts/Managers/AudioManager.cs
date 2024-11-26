@@ -40,6 +40,8 @@ public class AudioManager : MonoBehaviour
     [SerializeField] AudioSource metalAudio;
     [SerializeField] AudioSource woodAudio;
     [SerializeField] AudioSource backgroundMusic;
+    [SerializeField] AudioSource twinkleAudio;
+
 
 
     // Start is called before the first frame update
@@ -56,12 +58,14 @@ public class AudioManager : MonoBehaviour
             metalAudio.enabled = true;
             woodAudio.enabled = true;
             backgroundMusic.enabled = true;
+            twinkleAudio.enabled = true;
         }
         else
         {
             metalAudio.enabled = false;
             woodAudio.enabled = false;
             backgroundMusic.enabled = false;
+            twinkleAudio.enabled = false;
         }
     }
 
