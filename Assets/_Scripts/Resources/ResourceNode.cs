@@ -48,9 +48,6 @@ public class ResourceNode : MonoBehaviour
             onDepletedCallback?.Invoke();
             StartCoroutine(DestroyResource());
         }
-
-        OnResourceHarvested?.Invoke(harvestRate);
-
         return harvestRate;
     }
 

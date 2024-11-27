@@ -7,6 +7,9 @@ public class GameManager : MonoBehaviour
 {
     private static GameManager instance;
 
+    private string PLAYER_RESOURCE_METAL = "Metal_Count";
+    private string PLAYER_RESOURCE_WOOD = "WOOD_Count";
+
     public static GameManager Instance
     {
         get
@@ -33,24 +36,24 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public ResourceNode currentResource;
 
     [SerializeField]PlayerResources playerResource;
 
-    public Action<int> OnMetalHarvest;
-    public Action<int> OnWoodHarvest;
+    [Header("Action Events")]
+    public Action OnGatheringStart;
+
 
     void Start()
     {
         SwitchPlayerState(PlayerState.Idle);
     }
 
-    public void SwitchPlayerState(PlayerState newPlayerState)
+    public void SwitchPlayerState(PlayerState newPlayerState, ResourceNode currentResource = null)
     {
+
         switch (newPlayerState)
         {
             case PlayerState.Idle:
-
                 Debug.Log("Current Player State Is Idle");
                 break;
 
@@ -59,98 +62,24 @@ public class GameManager : MonoBehaviour
                 break;
 
             case PlayerState.Gathering:
-                GatherHandling();
+                OnGatheringStart?.Invoke();
                 break;
         }
-
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void HarvestMetal(int harvestAmount)
     {
-        Debug.Log("Some collider has entered body"+other.name);
-
-        if (other.CompareTag("Resource"))
-        {
-            currentResource = other.GetComponent<ResourceNode>();
-            SwitchPlayerState(PlayerState.Gathering);
-            Debug.Log("Entered resource: " + other.name);
-        }
+        playerResource.metalAmount += harvestAmount;
+        PlayerPrefs.SetInt(PLAYER_RESOURCE_METAL, playerResource.metalAmount);
     }
 
-    private void OnTriggerExit(Collider other)
+    public void HarvestWood(int harvestAmount)
     {
-        if (other.CompareTag("Resource"))
-        {
-            if (currentResource == other.GetComponent<ResourceNode>())
-            {
-                currentResource = null;
-                SwitchPlayerState(PlayerState.Idle);
-                Debug.Log("Exited resource: " + other.name);
-            }
-        }
+        playerResource.woodAmount += harvestAmount;
+        PlayerPrefs.SetInt(PLAYER_RESOURCE_WOOD, playerResource.woodAmount);
     }
 
 
-    public void GatherHandling()
-    {
-        StartCoroutine(Gathering());
-    }
-
-    IEnumerator Gathering()
-    {
-        bool isGathering = true;
-        while(isGathering)
-        {
-            if(currentResource != null)
-            {
-                if (currentResource.harvestQuantity > 0)
-                {
-                    ContinueHarvesting();
-                }
-                else
-                {
-                    isGathering = false;
-                    SwitchPlayerState(PlayerState.Idle);
-                }
-            }
-            else
-            {
-                isGathering = false;
-                SwitchPlayerState(PlayerState.Idle);
-            }
-            yield return new WaitForSeconds(0.5f);
-
-        }
-    }
-
-    void ContinueHarvesting()
-    {
-        if(currentResource != null)
-        {
-            if (currentResource.resourceName == "MetalOre")
-            {
-                playerResource.metalAmount += currentResource.Harvest();
-
-                int metalCount = playerResource.metalAmount;
-
-                OnMetalHarvest?.Invoke(metalCount);
-            }
-            else if (currentResource.resourceName == "TreeLog")
-            {
-                playerResource.woodAmount += currentResource.Harvest();
-
-                int woodCount = playerResource.woodAmount;
-
-                OnWoodHarvest?.Invoke(woodCount);
-            }
-        }
-        else
-        {
-            Debug.Log("Resource completely Depleted");
-        }
-
-        
-    }
 }
 
 public enum PlayerState

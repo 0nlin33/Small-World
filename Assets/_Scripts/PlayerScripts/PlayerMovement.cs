@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
-        gameManager = agent.GetComponent<GameManager>();
+        gameManager = GameManager.Instance;
     }
 
     
