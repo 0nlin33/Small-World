@@ -8,13 +8,11 @@ using UnityEngine.UI;
 public class ResourceInfoDisplay : MonoBehaviour
 {
     private string PLAYER_RESOURCE_METAL = "Metal_Count";
-    private string PLAYER_RESOURCE_WOOD = "WOOD_Count";
+    private string PLAYER_RESOURCE_WOOD = "Wood_Count";
 
     [Header("UI Refrences")]
     [SerializeField] private TextMeshProUGUI metalCountDisplay;
     [SerializeField] private TextMeshProUGUI woodCountDisplay;
-   /* [SerializeField] private TextMeshProUGUI updateQuest;
-    [SerializeField] private Slider channelSlider;*/
 
     [Header("Player Refrence")]
     [SerializeField] private PlayerCollisionHandler playerCollision;
@@ -23,8 +21,16 @@ public class ResourceInfoDisplay : MonoBehaviour
 
     private void Awake()
     {
-        MetalCountDisplay();
-        WoodCountDisplay();
+        PreviousValues();
+    }
+
+    void PreviousValues()
+    {
+        int metalHarvested = PlayerPrefs.GetInt(PLAYER_RESOURCE_METAL, 0);
+        metalCountDisplay.text = metalHarvested.ToString();
+
+        int woodHarvested = PlayerPrefs.GetInt(PLAYER_RESOURCE_WOOD,0);
+        woodCountDisplay.text = woodHarvested.ToString();
     }
 
 
@@ -34,7 +40,7 @@ public class ResourceInfoDisplay : MonoBehaviour
         playerCollision.OnWoodHarvest += WoodCountDisplay;
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         playerCollision.OnMetalHarvest -= MetalCountDisplay;
         playerCollision.OnWoodHarvest -= WoodCountDisplay;

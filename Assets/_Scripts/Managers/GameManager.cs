@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     private static GameManager instance;
 
     private string PLAYER_RESOURCE_METAL = "Metal_Count";
-    private string PLAYER_RESOURCE_WOOD = "WOOD_Count";
+    private string PLAYER_RESOURCE_WOOD = "Wood_Count";
 
     public static GameManager Instance
     {
@@ -35,9 +35,6 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(this);
         }
     }
-
-
-    [SerializeField]PlayerResources playerResource;
 
     [Header("Action Events")]
     public Action OnGatheringStart;
@@ -67,16 +64,27 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    int metalCountPlayer;
+    int woodCountPlayer;
+
+    public PlayerResources playerResources = new PlayerResources();
+
     public void HarvestMetal(int harvestAmount)
     {
-        playerResource.metalAmount += harvestAmount;
-        PlayerPrefs.SetInt(PLAYER_RESOURCE_METAL, playerResource.metalAmount);
+        metalCountPlayer += harvestAmount;
+
+        playerResources.NewMetalAmount(metalCountPlayer);
+
+        PlayerPrefs.SetInt(PLAYER_RESOURCE_METAL, metalCountPlayer);
     }
 
     public void HarvestWood(int harvestAmount)
     {
-        playerResource.woodAmount += harvestAmount;
-        PlayerPrefs.SetInt(PLAYER_RESOURCE_WOOD, playerResource.woodAmount);
+        woodCountPlayer += harvestAmount;
+
+        playerResources.NewWoodAmount(woodCountPlayer);
+
+        PlayerPrefs.SetInt(PLAYER_RESOURCE_WOOD, woodCountPlayer);
     }
 
 

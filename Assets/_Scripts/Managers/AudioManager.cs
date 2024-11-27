@@ -30,47 +30,28 @@ public class AudioManager : MonoBehaviour
             instance=this;
             DontDestroyOnLoad(gameObject);
         }
+
+        audioStatus = PlayerPrefs.GetInt(AUDIO_STATUS, 0) == 1;
     }
 
 
     private string AUDIO_STATUS = "audioStatus";
-    private bool audioStatus;
-
-    [Header("Audio Source Refrences")]
-    [SerializeField] AudioSource metalAudio;
-    [SerializeField] AudioSource woodAudio;
-    [SerializeField] AudioSource backgroundMusic;
-    [SerializeField] AudioSource twinkleAudio;
+    [SerializeField]private bool audioStatus;
 
 
-
-    // Start is called before the first frame update
-    void Start()
+    public bool  GetAudioStatus()
     {
-        audioStatus = PlayerPrefs.GetInt(AUDIO_STATUS, 0) == 1;
-        AudioStatusReflect();
+        return audioStatus;
     }
 
-    void AudioStatusReflect()
+    public void ToggleAudioOption()
     {
-        if (audioStatus)
-        {
-            metalAudio.enabled = true;
-            woodAudio.enabled = true;
-            backgroundMusic.enabled = true;
-            twinkleAudio.enabled = true;
-        }
-        else
-        {
-            metalAudio.enabled = false;
-            woodAudio.enabled = false;
-            backgroundMusic.enabled = false;
-            twinkleAudio.enabled = false;
-        }
+        ChangeAudioStatus();
     }
 
-   public void ChangeAudioStatus()
-    {
+
+   private void ChangeAudioStatus()
+   {
         audioStatus = !audioStatus;
 
         if(audioStatus)
@@ -81,6 +62,5 @@ public class AudioManager : MonoBehaviour
         {
             PlayerPrefs.SetInt(AUDIO_STATUS, 0);
         }
-        AudioStatusReflect();
-    }
+   }
 }

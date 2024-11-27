@@ -8,9 +8,13 @@ public class PlayerCollisionHandler : MonoBehaviour
     [Header("Refrences")]
     public ResourceNode currentResource;
 
-    [Header("Refrences")]
+    [Header("Actions")]
     public Action OnMetalHarvest;
     public Action OnWoodHarvest;
+    public Action<bool> OnResourceEnter;
+    public Action<bool> OnResourceEnterMetal;
+    public Action<bool> OnResourceEnterWood;
+    public Action<bool> OnResourceDepleted;
 
 
     private GameManager gameManager;
@@ -22,7 +26,12 @@ public class PlayerCollisionHandler : MonoBehaviour
 
     private void Start()
     {
-        gameManager.OnGatheringStart+= GatheringStart;
+        gameManager.OnGatheringStart += GatheringStart;
+    }
+
+    private void OnDisable()
+    {
+        gameManager.OnGatheringStart -= GatheringStart;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -31,7 +40,18 @@ public class PlayerCollisionHandler : MonoBehaviour
 
         if (other.CompareTag("Resource"))
         {
+            OnResourceEnter?.Invoke(true);
             currentResource = other.GetComponent<ResourceNode>();
+
+            if (currentResource.resourceName == "MetalOre")
+            {
+                OnResourceEnterMetal?.Invoke(true);
+            }
+            else if(currentResource.resourceName == "TreeLog")
+            {
+                OnResourceEnterWood?.Invoke(true);
+            }
+
             GameManager.Instance.SwitchPlayerState(PlayerState.Gathering, currentResource);
             Debug.Log("Entered resource: " + other.name);
         }
@@ -41,6 +61,10 @@ public class PlayerCollisionHandler : MonoBehaviour
     {
         if (other.CompareTag("Resource"))
         {
+            OnResourceEnter?.Invoke(false);
+            OnResourceEnterMetal?.Invoke(false);
+            OnResourceEnterWood?.Invoke(false);
+
             if (currentResource == other.GetComponent<ResourceNode>())
             {
                 currentResource = null;
@@ -56,30 +80,38 @@ public class PlayerCollisionHandler : MonoBehaviour
         StartCoroutine(Gathering());
     }
 
+    public Action<bool> OnStartChanneling;
     IEnumerator Gathering()
     {
         bool isGathering = true;
+        bool startChanneling = true;
+
         while (isGathering)
         {
+            OnStartChanneling?.Invoke(true);
+            yield return new WaitForSeconds(2f);
+
             if (currentResource != null)
             {
                 if (currentResource.harvestQuantity > 0)
                 {
+                    startChanneling = true ;
                     ContinueHarvesting(currentResource);
                 }
                 else
                 {
+                    OnResourceDepleted?.Invoke(true);
+                    startChanneling = false;
                     isGathering = false;
                     gameManager.SwitchPlayerState(PlayerState.Idle, null);
                 }
             }
             else
             {
+                startChanneling = false;
                 isGathering = false;
                 gameManager.SwitchPlayerState(PlayerState.Idle, null);
             }
-            yield return new WaitForSeconds(0.5f);
-
         }
     }
 

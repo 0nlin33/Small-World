@@ -1,54 +1,64 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ChannelUIScript : MonoBehaviour
 {
-
+    public GameObject sliderHolder;
     public Slider gatherSlider;
+    float channelDuration = 2f;
+
+    [Header("Player Refrence")]
+    [SerializeField] PlayerCollisionHandler playerHandler;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        GameManager.Instance.OnGatheringStart += StartChanneling;
+        sliderHolder.SetActive(false);
+        playerHandler.OnStartChanneling += StartChanneling;
+        playerHandler.OnResourceEnter += ChannelStatus;
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
-        GameManager.Instance.OnGatheringStart -= StartChanneling;
+        playerHandler.OnStartChanneling -= StartChanneling;
+        playerHandler.OnResourceEnter -= ChannelStatus;
+
     }
 
-    private void StartChanneling()
+    private void ChannelStatus(bool showChannel)
     {
+        sliderHolder.SetActive(showChannel);
+    }
+
+    private void StartChanneling(bool channelStatus)
+    {
+        StartCoroutine(ChannelSlider());
+    }
+
+    IEnumerator ChannelSlider()
+    {
+        float elapsedTime = 0f;
+
         gatherSlider.value = 0;
 
-        float channelDuration = 2;
-
-        UpdateSliderValue(channelDuration);
-    }
-
-    void UpdateSliderValue(float channelDuration)
-    {
-        bool sliderMax = true;
-
-        float channelStartValue = 0;
-        while (!sliderMax)
+        while (elapsedTime < channelDuration)
         {
-            gatherSlider.value += (channelStartValue+Time.deltaTime);
+            gatherSlider.value = Mathf.Lerp(0, 1, elapsedTime / channelDuration);
 
-            if(gatherSlider.value >= channelDuration)
-            {
-                sliderMax = false;
-            }
+            elapsedTime += Time.deltaTime;
+
+            yield return null; 
         }
+
+        gatherSlider.value = 1;
     }
 
-    // Update is called once per frame
-    void Update()
+    /*void Update()
     {
-        
-    }
+        float randValue = Random.Range(0.0f, 2.0f);
+        gatherSlider.value = randValue;
+    }*/
 }
