@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class AudioUIHandler : MonoBehaviour
 {
+    //This script is responsible for handling UI part of audio, how we refrence which audio and if to play audio or not according to audioManager
+
+    //Variables
     private AudioManager audioManager;
 
     [SerializeField] private PlayerCollisionHandler playerHandler;
@@ -22,6 +25,8 @@ public class AudioUIHandler : MonoBehaviour
         audioManager = AudioManager.Instance;
     }
 
+
+    //subscribing to events to play audio at correct time
     private void Start()
     {
         PlayBackgroundMusic();
@@ -31,6 +36,7 @@ public class AudioUIHandler : MonoBehaviour
         playerHandler.OnResourceDepleted += PlayTwinkleAudio;
     }
 
+    //unsubscribing
     private void OnDisable()
     {
         playerHandler.OnResourceEnterMetal -= PlayMetalAudio;
@@ -38,12 +44,14 @@ public class AudioUIHandler : MonoBehaviour
         playerHandler.OnResourceDepleted -= PlayTwinkleAudio;
     }
 
+    //letting player turn sound on or off
     public void ToggleAudio()
     {
         audioManager.ToggleAudioOption();
         PlayBackgroundMusic();
     }
 
+    //playing backgroundmusic
     private void PlayBackgroundMusic()
     {
         if (audioManager.GetAudioStatus())
@@ -56,6 +64,7 @@ public class AudioUIHandler : MonoBehaviour
         }
     }
 
+    //play metal harvesting sound
     public void PlayMetalAudio(bool playAudio)
     {
         if(playAudio)
@@ -81,6 +90,7 @@ public class AudioUIHandler : MonoBehaviour
         
     }
 
+    //play wood harvesting sound
     public void PlayWoodAudio(bool playAudio)
     {
         if (playAudio)
@@ -106,6 +116,7 @@ public class AudioUIHandler : MonoBehaviour
         
     }
 
+    //play twinkle sound
     public void PlayTwinkleAudio(bool playAudio)
     {
         if (playAudio)

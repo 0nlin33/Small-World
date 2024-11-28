@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+//Unnecessary class for now, but people might choose to use it to have a more dynamic storage for ther data
 public class PlayerResources
 {
     private int woodAmount;

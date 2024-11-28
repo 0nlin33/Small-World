@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class ResourceInfoDisplay : MonoBehaviour
 {
+
+    //Variables to store and refrence obejcts
     private string PLAYER_RESOURCE_METAL = "Metal_Count";
     private string PLAYER_RESOURCE_WOOD = "Wood_Count";
 
@@ -24,6 +26,7 @@ public class ResourceInfoDisplay : MonoBehaviour
         PreviousValues();
     }
 
+    //display value from previous sessions
     void PreviousValues()
     {
         int metalHarvested = PlayerPrefs.GetInt(PLAYER_RESOURCE_METAL, 0);
@@ -36,22 +39,26 @@ public class ResourceInfoDisplay : MonoBehaviour
 
     void Start()
     {
+        //subscribe to event from other scripts
         playerCollision.OnMetalHarvest += MetalCountDisplay;
         playerCollision.OnWoodHarvest += WoodCountDisplay;
     }
 
     private void OnDisable()
     {
+        //unsubscribe to event from other scripts
         playerCollision.OnMetalHarvest -= MetalCountDisplay;
         playerCollision.OnWoodHarvest -= WoodCountDisplay;
     }
 
+    //Display metal count
     private void MetalCountDisplay()
     {
         int metalCount = PlayerPrefs.GetInt(PLAYER_RESOURCE_METAL, 0);
         metalCountDisplay.text = metalCount.ToString();
     }
 
+    //Display wood count
     private void WoodCountDisplay()
     {
         int woodCount = PlayerPrefs.GetInt(PLAYER_RESOURCE_WOOD, 0);

@@ -15,3 +15,4 @@ public class Resources : ScriptableObject
     public int gatherTime;
     public int gatherRate;
 }
+//Scriptable object that can be used to store data which is used by multiple objects/gameobjects in the game

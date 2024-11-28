@@ -5,8 +5,12 @@ using UnityEngine;
 
 public class GameScript : MonoBehaviour
 {
+    //GameScript is added to add life to the game with a bit of lore
+
+    //made singleton
     public static GameScript instance;
 
+    //variables and  refrences
     [Header("GameObject Refrences")]
     [SerializeField] GameObject sea;
     [SerializeField] GameObject gameUICanvas;
@@ -14,15 +18,16 @@ public class GameScript : MonoBehaviour
     [SerializeField] GameObject startGameHodler;
     [SerializeField] GameObject endGameHolder;
 
+    //creted a new list
     public List<GameObject> resources = new List<GameObject>();
 
-
+    //fucntion to quit game
     public void QuitGame()
     {
         Application.Quit();
     }
 
-
+    //simple singleton
     private void Awake()
     {
         // Ensure this manager is a singleton
@@ -36,6 +41,7 @@ public class GameScript : MonoBehaviour
         }
     }
 
+    //Add to list if object is not already in the list, from event
     public void AddObject(GameObject obj)
     {
         if (!resources.Contains(obj))
@@ -43,7 +49,8 @@ public class GameScript : MonoBehaviour
             resources.Add(obj);
         }
     }
-
+    
+    //remove from the list if the object stops existing, from event
     public void RemoveObject(GameObject obj)
     {
         if (resources.Contains(obj))
@@ -53,8 +60,10 @@ public class GameScript : MonoBehaviour
 
         
     }
+    
     bool drownWorld = false;
 
+    //in update we check how many elements are in list and if there are no elements left on the list, the games moves towards ending
     private void Update()
     {
         if (resources.Count <= 0)

@@ -6,6 +6,9 @@ using UnityEngine;
 
 public class QuitGame : MonoBehaviour
 {
+    //This class is very similar to pauseHandler class and does similar things to control UI but it also lets player quit the game
+
+    //Variables and refrences
     [Header("Gameobject Refrences")]
     [SerializeField] private GameObject quitPanel;
     [SerializeField] private GameObject quitPopup;
@@ -43,6 +46,7 @@ public class QuitGame : MonoBehaviour
         Time.timeScale = 0f;
     }
 
+    //Closes the game
     public void CloseGame()
     {
         StartCoroutine(CloseQuitPanel());

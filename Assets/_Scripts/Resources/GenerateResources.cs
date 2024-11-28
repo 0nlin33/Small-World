@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Unnecessary class. might be useful to someone else if they were to explore and make changes
 public class GenerateResources : MonoBehaviour
 {
     public Resources metalOre;
