@@ -121,12 +121,16 @@ public class PlayerCollisionHandler : MonoBehaviour
         {
             if (currentResource.resourceName == "MetalOre")
             {
+                OnResourceEnterMetal?.Invoke(true);
+               
                 gameManager.HarvestMetal(currentResource.Harvest());
 
                 OnMetalHarvest?.Invoke();
             }
             else if (currentResource.resourceName == "TreeLog")
             {
+
+                OnResourceEnterWood?.Invoke(true);
                 gameManager.HarvestWood(currentResource.Harvest());
 
                 OnWoodHarvest?.Invoke();

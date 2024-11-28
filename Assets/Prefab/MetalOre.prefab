@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 3250449437082464805}
   - component: {fileID: 1634391999274577179}
   - component: {fileID: 6790757240145421891}
-  - component: {fileID: 8988431866113167633}
   - component: {fileID: -3016702162381364571}
   - component: {fileID: -3945888724797031479}
+  - component: {fileID: 149204542584321330}
+  - component: {fileID: 8728281203073708679}
   m_Layer: 7
   m_Name: MetalOre
   m_TagString: Resource
@@ -45,7 +46,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 171608889828023678}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &6790757240145421891
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -88,27 +89,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &8988431866113167633
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 171608889828023678}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &-3016702162381364571
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -122,9 +102,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resourceType: {fileID: 11400000, guid: f3d6702b8b2d21840966e454c44c9846, type: 2}
-  resourceName: 
+  cursorChanger: {fileID: 149204542584321330}
+  harvestedAmount: 0
   harvestQuantity: 0
+  resourceName: 
+  harvestQuantityMax: 0
   harvestRate: 0
+  harvestTime: 0
 --- !u!65 &-3945888724797031479
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -145,6 +129,41 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 2, y: 1, z: 2}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &149204542584321330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 171608889828023678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faea94a3773f107459f060f3c4a1bf97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cursorHand: {fileID: 0}
+  cursorHammer: {fileID: 2800000, guid: ff9f7d2c932cd7640a9874073097e085, type: 3}
+--- !u!65 &8728281203073708679
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 171608889828023678}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.0000001, y: 1, z: 1.0000001}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6831547872257277473
 GameObject:

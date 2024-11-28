@@ -32,7 +32,36 @@ public class PlayerMovement : MonoBehaviour
             Ray myRay = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hitInfo;
 
-            if (Physics.Raycast(myRay, out hitInfo, Mathf.Infinity, groundLayer))
+            
+            if (Physics.Raycast(myRay, out hitInfo, Mathf.Infinity, resourceLayer))
+            {
+
+                Vector3 resourcePosition = hitInfo.collider.transform.position;
+                Vector3 playerPosition = gameObject.transform.position;
+
+                Vector3 destinationPosition = new Vector3();
+
+                if(resourcePosition.x < playerPosition.x || resourcePosition.x > playerPosition.x )
+                {
+                    destinationPosition = new Vector3(resourcePosition.x - 1.25f, playerPosition.y, playerPosition.z);
+                    agent.SetDestination(destinationPosition);
+                }
+                else if (resourcePosition.z< playerPosition.z || resourcePosition.z > playerPosition.z)
+                {
+                    destinationPosition = new Vector3(playerPosition.x, playerPosition.y, resourcePosition.z - 1.25f);
+                    agent.SetDestination(destinationPosition);
+                }
+
+                FaceTarget();
+
+                agent.SetDestination(destinationPosition);
+
+                /*Debug.Log("My current position is :"+gameObject.transform.position);
+                Vector3 newDestination  = hitInfo.point;
+                Debug.Log("My destination position is :" + newDestination);
+                agent.SetDestination(new Vector3(newDestination.x -1, newDestination.y,newDestination.z-1));*/
+            }
+            else if (Physics.Raycast(myRay, out hitInfo, Mathf.Infinity, groundLayer))
             {
                 GameObject clickEffect = ClickParticlesPool.Instance.GetPooledObject();
 
@@ -51,10 +80,6 @@ public class PlayerMovement : MonoBehaviour
 
                 StartCoroutine(ReachedDestination(hitInfo.point));
 
-            }
-            else if (Physics.Raycast(myRay, out hitInfo, Mathf.Infinity, resourceLayer))
-            {
-                agent.SetDestination(hitInfo.point);
             }
         }
 

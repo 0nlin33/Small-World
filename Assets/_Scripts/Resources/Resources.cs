@@ -14,7 +14,4 @@ public class Resources : ScriptableObject
 
     public int gatherTime;
     public int gatherRate;
-
-    public GameObject harvestEffect;
-    public AudioClip harvestSound;
 }

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1426411281611099797}
   - component: {fileID: -4938870048333427295}
   - component: {fileID: -1340954598944112903}
+  - component: {fileID: 2429565821151585981}
   m_Layer: 7
   m_Name: WoodResource
   m_TagString: Resource
@@ -123,9 +124,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resourceType: {fileID: 11400000, guid: e3e255a501773ea4aab3ede5fbd26896, type: 2}
+  cursorChanger: {fileID: 2429565821151585981}
   resourceName: 
   harvestQuantity: 0
   harvestRate: 0
+  harvestTime: 0
 --- !u!65 &-1340954598944112903
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -147,6 +150,20 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2, y: 2, z: 2}
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!114 &2429565821151585981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2867683066756080620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faea94a3773f107459f060f3c4a1bf97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currsorHand: {fileID: 2800000, guid: b6ad5282944b4cc4a9df5570931c8dba, type: 3}
+  cursorHammer: {fileID: 2800000, guid: ff9f7d2c932cd7640a9874073097e085, type: 3}
 --- !u!1 &9066210683339670184
 GameObject:
   m_ObjectHideFlags: 0
