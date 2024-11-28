@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TreeLog
   m_EditorClassIdentifier: 
   resourceName: TreeLog
-  resourceAmount: 150
+  resourceAmount: 10
   resourcePrefab: {fileID: 2867683066756080620, guid: d29e2b0bf4551734d857f813b60b0cad, type: 3}
   gatherTime: 2
   gatherRate: 1

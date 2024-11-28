@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using UnityEngine;
 
 public class ResourceNode : MonoBehaviour
@@ -20,15 +21,14 @@ public class ResourceNode : MonoBehaviour
     public int harvestQuantityMax;
     public int harvestRate;
     public int harvestTime;
-    //private System.Action onDepletedCallback;
 
     public Action<int> OnResourceHarvested;
 
-   /* public void Initialize(System.Action onDepleted)
-    {
-        onDepletedCallback = onDepleted;
-    }*/
 
+    private void Awake()
+    {
+        GameScript.instance.AddObject(gameObject);
+    }
 
 
     private void Start()
@@ -96,5 +96,10 @@ public class ResourceNode : MonoBehaviour
     {
         yield return new WaitForSeconds(.5f);
         Destroy(gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        GameScript.instance.RemoveObject(gameObject);
     }
 }

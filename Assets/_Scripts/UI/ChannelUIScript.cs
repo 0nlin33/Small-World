@@ -19,6 +19,14 @@ public class ChannelUIScript : MonoBehaviour
         sliderHolder.SetActive(false);
         playerHandler.OnStartChanneling += StartChanneling;
         playerHandler.OnResourceEnter += ChannelStatus;
+        playerHandler.OnResourceDepleted += ChannelStatusChange;
+    }
+
+    bool resourceDelpted = false;
+
+    private void ChannelStatusChange(bool obj)
+    {
+        resourceDelpted = obj;
     }
 
     private void OnDisable()
@@ -54,6 +62,9 @@ public class ChannelUIScript : MonoBehaviour
         }
 
         gatherSlider.value = 1;
+
+        yield return new WaitForSeconds(.2f);
+        gatherSlider.value = 0;
     }
 
     /*void Update()
