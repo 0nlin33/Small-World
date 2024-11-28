@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MetalOre
   m_EditorClassIdentifier: 
   resourceName: MetalOre
-  resourceAmount: 10
+  resourceAmount: 25
   resourcePrefab: {fileID: 171608889828023678, guid: 7431f4364d3ec304a9678e71f4583bab, type: 3}
   gatherTime: 2
   gatherRate: 1

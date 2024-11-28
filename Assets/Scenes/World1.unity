@@ -688,8 +688,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58560e19fa88b31479ffaa148b2a78b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sea: {fileID: 1609388699}
   gameUICanvas: {fileID: 323991976}
   endGameCanvas: {fileID: 1578232447}
+  startGameHodler: {fileID: 1144722311}
   endGameHolder: {fileID: 987369597}
   resources: []
 --- !u!1 &154708867
@@ -3867,7 +3869,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 767667812}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 146705969}
+        m_TargetAssemblyTypeName: GameScript, Assembly-CSharp
+        m_MethodName: QuitGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &767667812
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4302,7 +4316,7 @@ MonoBehaviour:
   m_text: '...maybe I forgot to mention the last part...
 
     Oh well, sucks to be
-    you I guesss, byeeeeeee!!'
+    you, byeeeeeee!!'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5393,6 +5407,7 @@ GameObject:
   - component: {fileID: 1148769783}
   - component: {fileID: 1148769782}
   - component: {fileID: 1148769781}
+  - component: {fileID: 1148769784}
   m_Layer: 0
   m_Name: PlayerCanvas
   m_TagString: Untagged
@@ -5483,6 +5498,18 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &1148769784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1148769779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78ca25e47e8de1c4597c548eb5c682ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1159022438
 GameObject:
   m_ObjectHideFlags: 0
@@ -6536,7 +6563,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Start
+  m_text: QUIT!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6728,7 +6755,7 @@ GameObject:
   - component: {fileID: 1609388702}
   - component: {fileID: 1609388701}
   m_Layer: 0
-  m_Name: Quad
+  m_Name: Sea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

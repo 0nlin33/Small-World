@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,8 +7,11 @@ public class GameScript : MonoBehaviour
 {
     public static GameScript instance;
 
+    [Header("GameObject Refrences")]
+    [SerializeField] GameObject sea;
     [SerializeField] GameObject gameUICanvas;
     [SerializeField] GameObject endGameCanvas;
+    [SerializeField] GameObject startGameHodler;
     [SerializeField] GameObject endGameHolder;
 
     public List<GameObject> resources = new List<GameObject>();
@@ -49,6 +53,7 @@ public class GameScript : MonoBehaviour
 
         
     }
+    bool drownWorld = false;
 
     private void Update()
     {
@@ -56,7 +61,15 @@ public class GameScript : MonoBehaviour
         {
             gameUICanvas.SetActive(false);
             endGameCanvas.SetActive(true);
+            startGameHodler.SetActive(false);
             endGameHolder.SetActive(true);
+
+            drownWorld = true;
+        }
+
+        if (drownWorld)
+        {
+            sea.transform.DOMoveY(3, 20).SetEase(Ease.Linear).SetUpdate(true);
         }
     }
 
