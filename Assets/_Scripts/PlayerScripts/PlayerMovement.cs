@@ -41,14 +41,25 @@ public class PlayerMovement : MonoBehaviour
 
                 Vector3 destinationPosition = new Vector3();
 
-                if(resourcePosition.x < playerPosition.x || resourcePosition.x > playerPosition.x )
+                //Need to check if the player is moving in from 
+                if(resourcePosition.x < playerPosition.x && resourcePosition.z == 0)
                 {
-                    destinationPosition = new Vector3(resourcePosition.x - 1.25f, playerPosition.y, playerPosition.z);
+                    destinationPosition = new Vector3(resourcePosition.x + 1.25f, playerPosition.y, 0);
                     agent.SetDestination(destinationPosition);
                 }
-                else if (resourcePosition.z< playerPosition.z || resourcePosition.z > playerPosition.z)
+                else if(resourcePosition.x > playerPosition.x && resourcePosition.z == 0)
                 {
-                    destinationPosition = new Vector3(playerPosition.x, playerPosition.y, resourcePosition.z - 1.25f);
+                    destinationPosition = new Vector3(resourcePosition.x - 1.25f, playerPosition.y, 0);
+                    agent.SetDestination(destinationPosition);
+                }
+                else if (resourcePosition.z < playerPosition.z && resourcePosition.x == 0) 
+                {
+                    destinationPosition = new Vector3(0, playerPosition.y, resourcePosition.z + 1);
+                    agent.SetDestination(destinationPosition);
+                }
+                else if(resourcePosition.z > playerPosition.z && resourcePosition.x == 0)
+                {
+                    destinationPosition = new Vector3(0, playerPosition.y, resourcePosition.z - 1);
                     agent.SetDestination(destinationPosition);
                 }
 

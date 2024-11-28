@@ -7,7 +7,7 @@ using UnityEngine;
 public class QuitGame : MonoBehaviour
 {
     [Header("Gameobject Refrences")]
-    [SerializeField] private GameObject quitPanelHolder;
+    [SerializeField] private GameObject quitPanel;
     [SerializeField] private GameObject quitPopup;
 
     private void Update()
@@ -18,9 +18,14 @@ public class QuitGame : MonoBehaviour
         }
     }
 
+    public void AskQuit()
+    {
+        DisplayQuitPanel();
+    }
+
     private void DisplayQuitPanel()
     {
-        quitPanelHolder.SetActive(true);
+        quitPanel.SetActive(true);
         quitPopup.transform.DOScaleY(1, 0.3f).SetEase(Ease.Linear).SetUpdate(true);
     }
 
@@ -32,8 +37,10 @@ public class QuitGame : MonoBehaviour
     IEnumerator CloseQuitPanel()
     {
         quitPopup.transform.DOScaleY(0, 0.3f).SetEase(Ease.Linear).SetUpdate(true);
-        yield return new WaitForSeconds(.35f);
-        quitPanelHolder.SetActive(false);
+        Time.timeScale = 1.0f;
+        yield return new WaitForSeconds(0.35f);
+        quitPanel.SetActive(false);
+        Time.timeScale = 0f;
     }
 
     public void CloseGame()
